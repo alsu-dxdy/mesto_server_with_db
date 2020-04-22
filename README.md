@@ -1,7 +1,7 @@
-# mesto_server
-# https://github.com/alsu-dxdy/mesto
+# mesto_server_with_db
+# https://github.com/alsu-dxdy/mesto_server_with_db
 # Version v0.0.2
-# Description: Creating server without authentication
+# Description: Creating server with db, without authentication
 # Инструкция по сборке:
 # точка входа: app.js
 # команда npm run dev запускает сервер на localhost:3000 с хот релоудом;
