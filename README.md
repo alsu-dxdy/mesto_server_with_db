@@ -2,6 +2,8 @@
 # https://github.com/alsu-dxdy/mesto_server_with_db
 # Version v0.0.2
 # Description: Creating server with db, without authentication
+# Для вадидации ссылок используется сторонний валидатор:
+# https://github.com/validatorjs/validator.js
 # Инструкция по сборке:
 # точка входа: app.js
 # команда npm run dev запускает сервер на localhost:3000 с хот релоудом;
@@ -21,7 +23,6 @@
 # PATCH /users/me/avatar — обновляет аватар
 # PUT /cards/:cardId/likes — поставить лайк карточке
 # DELETE /cards/:cardId/likes — убрать лайк с карточки
-# Для вадидации ссылок используется сторонний валидатор:
-# https://github.com/validatorjs/validator.js
+
 
  
