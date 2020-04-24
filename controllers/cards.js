@@ -9,6 +9,7 @@ module.exports.getCards = (req, res) => {
 
 module.exports.getCardById = (req, res, next) => {
   Card.findById(req.params.cardId)
+    // eslint-disable-next-line consistent-return
     .then((card) => {
       if (!card) {
         return next({ status: 404, message: 'Card with this ID does not exist' });
@@ -26,6 +27,7 @@ module.exports.createCard = (req, res, next) => {
 
   Card.create({ name, link, owner })
     .then((card) => res.send({ card }))
+    // eslint-disable-next-line consistent-return
     .catch((err) => {
       if (err.message === 'ENOTFOUND') {
         return next({ status: 404, message: 'Card file not found' });
@@ -36,6 +38,7 @@ module.exports.createCard = (req, res, next) => {
 
 module.exports.removeCardById = (req, res, next) => {
   Card.findByIdAndRemove(req.params.cardId)
+    // eslint-disable-next-line consistent-return
     .then((card) => {
       if (!card) {
         return next({ status: 404, message: 'Card with this ID does not exist' });
