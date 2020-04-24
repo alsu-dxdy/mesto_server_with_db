@@ -20,6 +20,13 @@ module.exports.createUser = (req, res) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => res.status(500).send({ message: err.message }));
 };
+
+module.exports.removeUserdById = (req, res) => {
+  Card.findByIdAndRemove(req.params.userId)
+    .then((user) => res.send({ user }))
+    .catch((err) => res.status(500).send({ message: err.message }));
+};
+
 module.exports.updateUser = (req, res) => {
   // eslint-disable-next-line max-len
   User.findByIdAndUpdate(req.user._id, { name: req.body.name, about: req.body.about }, { new: true })

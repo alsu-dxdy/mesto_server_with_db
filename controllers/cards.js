@@ -7,25 +7,44 @@ module.exports.getCards = (req, res) => {
     .catch((err) => res.status(500).send({ message: err.message }));
 };
 
-module.exports.getCardById = (req, res) => {
+module.exports.getCardById = (req, res, next) => {
   Card.findById(req.params.cardId)
-    .then((card) => res.send({ card }))
-    .catch((err) => res.status(500).send({ message: err.message }));
+    .then((card) => {
+      if (!card) {
+        return next({ status: 404, message: 'Card with this ID does not exist' });
+      }
+      res.json(card);
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
 
-module.exports.createCard = (req, res) => {
+module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
   const owner = req.user._id;
 
   Card.create({ name, link, owner })
     .then((card) => res.send({ card }))
-    .catch((err) => res.status(500).send({ message: err.message }));
+    .catch((err) => {
+      if (err.message === 'ENOTFOUND') {
+        return next({ status: 404, message: 'Card file not found' });
+      }
+      next(err);
+    });
 };
 
-module.exports.removeCardById = (req, res) => {
+module.exports.removeCardById = (req, res, next) => {
   Card.findByIdAndRemove(req.params.cardId)
-    .then((card) => res.send({ data: card }))
-    .catch((err) => res.status(500).send({ message: err.message }));
+    .then((card) => {
+      if (!card) {
+        return next({ status: 404, message: 'Card with this ID does not exist' });
+      }
+      res.send('Card is deleted');
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
 
 // eslint-disable-next-line no-unused-vars
