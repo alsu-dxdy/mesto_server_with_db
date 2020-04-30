@@ -38,3 +38,17 @@ app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`App listening on port ${PORT}`);
 });
+
+app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  let message = err.message;
+  if (err.name === 'ValidationError') {
+    return res.status(400).send('ValidationError');
+  }
+
+  if (status === 500) {
+    console.error(err.stack || err);
+    message = 'unexpected error';
+  }
+  res.status(status).send(message);
+});
